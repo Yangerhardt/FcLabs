@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -35,7 +36,7 @@ public class Usuario implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario" )
+    @OneToOne(mappedBy = "usuario")
     private Endereco endereco;
 
 

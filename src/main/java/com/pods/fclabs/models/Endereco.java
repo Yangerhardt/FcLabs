@@ -1,5 +1,6 @@
 package com.pods.fclabs.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,7 +41,6 @@ public class Endereco implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @OneToOne(mappedBy = "endereco")
     private Usuario usuario;
 }

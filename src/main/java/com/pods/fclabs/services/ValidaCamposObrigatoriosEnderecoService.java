@@ -3,9 +3,12 @@ package com.pods.fclabs.services;
 import com.pods.fclabs.exception.CampoObrigatorioException;
 import com.pods.fclabs.models.Endereco;
 import com.pods.fclabs.models.Usuario;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class ValidaCamposObrigatoriosEnderecoService {
     public void validaCamposObrigatoriosEndereco(Endereco endereco) {
 

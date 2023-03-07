@@ -253,8 +253,8 @@ public class Util {
             log.error(logMessage);
         }
     }
-    
-    
+
+
     public UsuarioResponse converteUsuarioInResponse(Usuario paciente) {
         UsuarioResponse pr = new UsuarioResponse();
         pr.setId(paciente.getId());
