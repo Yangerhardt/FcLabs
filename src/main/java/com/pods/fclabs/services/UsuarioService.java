@@ -23,7 +23,7 @@ public class UsuarioService {
 	private Util util;
 
 	@Autowired
-	private ValidaCamposObrigatoriosService validaCamposObrigatorios;
+	private ValidaCamposObrigatoriosUsuarioService validaCamposObrigatorios;
 
 	public UsuarioResponse salva(Usuario usuario) throws UsuarioExistenteException {
 		try {

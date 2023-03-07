@@ -33,11 +33,14 @@ public class Endereco implements Serializable {
     @ApiModelProperty(dataType = "String", example = "Rua X", required = true)
     private String logradouro;
     @ApiModelProperty(dataType = "String", example = "xxxx", required = true)
-    private int numero;
+    private String numero;
     @ApiModelProperty(dataType = "String", example = "Apto xxx", required = false)
     private String complemento;
     @ApiModelProperty(hidden = true)
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

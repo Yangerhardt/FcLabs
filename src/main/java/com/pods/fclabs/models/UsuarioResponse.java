@@ -6,6 +6,7 @@ public class UsuarioResponse {
     private UUID id;
     private String nome;
     private String nomeMae;
+	private Endereco endereco;
 	
     public UUID getId() {
 		return id;
@@ -25,6 +26,11 @@ public class UsuarioResponse {
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}
-	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 }
 

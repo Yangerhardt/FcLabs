@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
+import com.pods.fclabs.models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -19,10 +20,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.GsonBuilder;
 import com.pods.fclabs.enums.LoggerInfoLevelEnum;
-import com.pods.fclabs.models.MsgRetorno;
-import com.pods.fclabs.models.Usuario;
-import com.pods.fclabs.models.UsuarioResponse;
-
 
 
 @Service
@@ -263,6 +260,7 @@ public class Util {
         pr.setId(paciente.getId());
         pr.setNome(paciente.getNome());
         pr.setNomeMae(paciente.getNomeMae());
+        pr.setEndereco(paciente.getEndereco());
      
         return pr;
     }
@@ -274,10 +272,42 @@ public class Util {
             pr.setId(listaUsuario.get(i).getId());
             pr.setNome(listaUsuario.get(i).getNome());
             pr.setNomeMae(listaUsuario.get(i).getNomeMae());
+            pr.setEndereco(listaUsuario.get(i).getEndereco());
             lista.add(pr);
 		}
     
         return lista;
     }
-    
+
+    public EnderecoResponse converteEnderecoInResponse(Endereco endereco) {
+        EnderecoResponse response = new EnderecoResponse();
+        response.setId(endereco.getId());
+        response.setCep(endereco.getCep());
+        response.setCidade(endereco.getCidade());
+        response.setUf(endereco.getUf());
+        response.setLogradouro(endereco.getLogradouro());
+        response.setNumero(endereco.getNumero());
+        response.setComplemento(endereco.getComplemento());
+        response.setUsuario(endereco.getUsuario());
+
+        return response;
+    }
+
+    public List<EnderecoResponse> converteListEnderecoInResponse(List<Endereco> listaEndereco) {
+        List<EnderecoResponse> lista = new ArrayList<>();
+        for (Endereco endereco : listaEndereco) {
+            EnderecoResponse response = new EnderecoResponse();
+            response.setId(endereco.getId());
+            response.setCep(endereco.getCep());
+            response.setCidade(endereco.getCidade());
+            response.setUf(endereco.getUf());
+            response.setLogradouro(endereco.getLogradouro());
+            response.setNumero(endereco.getNumero());
+            response.setComplemento(endereco.getComplemento());
+            response.setUsuario(endereco.getUsuario());
+            lista.add(response);
+        }
+
+        return lista;
+    }
 }

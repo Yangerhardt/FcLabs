@@ -8,7 +8,7 @@ import com.pods.fclabs.exception.CampoObrigatorioException;
 import com.pods.fclabs.models.Usuario;
 
 @Service
-public class ValidaCamposObrigatoriosService {
+public class ValidaCamposObrigatoriosUsuarioService {
 
   
     public void validaCamposObrigatoriosUsuario(Usuario usuario) {
