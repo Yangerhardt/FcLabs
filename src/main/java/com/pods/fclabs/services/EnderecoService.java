@@ -1,6 +1,8 @@
 package com.pods.fclabs.services;
 
+import com.pods.fclabs.dtos.EnderecoDTO;
 import com.pods.fclabs.exception.EnderecoExistenteException;
+import com.pods.fclabs.mapper.EnderecoMapper;
 import com.pods.fclabs.models.Endereco;
 import com.pods.fclabs.models.EnderecoResponse;
 import com.pods.fclabs.repositories.EnderecoRepository;
@@ -24,10 +26,14 @@ public class EnderecoService {
     @Autowired
     ValidaCamposObrigatoriosEnderecoService validaCamposObrigatorios;
 
-    public EnderecoResponse salva(Endereco endereco) throws EnderecoExistenteException {
+    @Autowired
+    private EnderecoMapper mapper;
+
+    public EnderecoResponse salva(EnderecoDTO enderecoDTO) throws EnderecoExistenteException {
         try {
-            validaCamposObrigatorios.validaCamposObrigatoriosEndereco(endereco);
-            endereco.setId(UUID.randomUUID());
+            validaCamposObrigatorios.validaCamposObrigatoriosEndereco(enderecoDTO);
+            enderecoDTO.setId(UUID.randomUUID());
+            Endereco endereco = mapper.toEndereco(enderecoDTO);
             endereco.setDtCriacao(Util.formatarData((new Date())));
             endereco.setDtUltAlteracao(Util.formatarData((new Date())));
             return util.converteEnderecoInResponse(enderecoRepository.save(endereco));
@@ -37,9 +43,10 @@ public class EnderecoService {
         }
     }
 
-    public EnderecoResponse atualiza (Endereco endereco) {
-        validaCamposObrigatorios.validaIdEndereco(endereco.getId());
-        validaCamposObrigatorios.validaCamposObrigatoriosEndereco(endereco);
+    public EnderecoResponse atualiza (EnderecoDTO enderecoDTO) {
+        validaCamposObrigatorios.validaIdEndereco(enderecoDTO.getId());
+        validaCamposObrigatorios.validaCamposObrigatoriosEndereco(enderecoDTO);
+        Endereco endereco = mapper.toEndereco(enderecoDTO);
         endereco.setDtUltAlteracao(Util.formatarData((new Date())));
         return util.converteEnderecoInResponse(enderecoRepository.save(endereco));
     }

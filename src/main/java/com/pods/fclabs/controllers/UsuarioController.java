@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.pods.fclabs.dtos.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -59,26 +60,26 @@ public class UsuarioController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 500, message = "Failure", response = Exception.class)})
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> salva(@RequestBody @Valid Usuario usuario) throws Exception {
+    public ResponseEntity<Object> salva(@RequestBody @Valid UsuarioDTO usuarioDTO) throws Exception {
         try {
-            if (Objects.isNull(usuario)) {
-                Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "salva", DADOS_OBRIGATORIOS, usuario, LoggerInfoLevelEnum.ERROR);
+            if (Objects.isNull(usuarioDTO)) {
+                Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "salva", DADOS_OBRIGATORIOS, usuarioDTO, LoggerInfoLevelEnum.ERROR);
 
                 return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                         HttpStatus.CONFLICT.name(),
                         DADOS_OBRIGATORIOS, CAMPO_OBRIGATORIO_EXCEPTION), HttpStatus.BAD_REQUEST);
             }
-            final UsuarioResponse usuarioResponse =   service.salva(usuario);
+            final UsuarioResponse usuarioResponse =   service.salva(usuarioDTO);
 
             return Objects.isNull(usuarioResponse) ? new ResponseEntity(HttpStatus.NO_CONTENT) : new ResponseEntity<>(usuarioResponse, HttpStatus.CREATED);
         } catch (CampoObrigatorioException coe) {
-            Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "salva", coe.getMessage(), usuario, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "salva", coe.getMessage(), usuarioDTO, LoggerInfoLevelEnum.ERROR);
 
             return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.name(),
                     coe.getMessage(), CAMPO_OBRIGATORIO_EXCEPTION), HttpStatus.BAD_REQUEST);
         } catch (UsuarioExistenteException e) {
-            Util.registraLog(this.getClass(), USUARIO_EXISTENTE_EXCEPTION, "salva", USUARIO_EXISTENTE, usuario, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), USUARIO_EXISTENTE_EXCEPTION, "salva", USUARIO_EXISTENTE, usuarioDTO, LoggerInfoLevelEnum.ERROR);
 
             return new ResponseEntity<>(Util.criaMsgRetornoComUsuario(HttpStatus.CONFLICT.value(),
                     HttpStatus.CONFLICT.name(),
@@ -95,14 +96,14 @@ public class UsuarioController {
             @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 500, message = "Failure", response = Exception.class)})
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> atualiza(@RequestBody Usuario usuario) {
+    public ResponseEntity<Object> atualiza(@RequestBody UsuarioDTO usuarioDTO) {
         try {
-            return  new ResponseEntity<>(service.atualiza(usuario), HttpStatus.OK);
+            return  new ResponseEntity<>(service.atualiza(usuarioDTO), HttpStatus.OK);
         } catch (NullPointerException e) {
-            Util.registraLog(this.getClass(), e.getClass().getName(), "atualiza", e.getStackTrace().toString(), usuario, LoggerInfoLevelEnum.INFO);
+            Util.registraLog(this.getClass(), e.getClass().getName(), "atualiza", e.getStackTrace().toString(), usuarioDTO, LoggerInfoLevelEnum.INFO);
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (UsuarioInexistenteException pie) {
-            Util.registraLog(this.getClass(), USUARIO_INEXISTENTE_EXCEPTION, "atualiza", pie.getMessage(), usuario, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), USUARIO_INEXISTENTE_EXCEPTION, "atualiza", pie.getMessage(), usuarioDTO, LoggerInfoLevelEnum.ERROR);
             return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.name(),
                     pie.getMessage(), USUARIO_INEXISTENTE_EXCEPTION ), HttpStatus.BAD_REQUEST);

@@ -1,6 +1,7 @@
 package com.pods.fclabs.controllers;
 
 import com.google.gson.Gson;
+import com.pods.fclabs.dtos.EnderecoDTO;
 import com.pods.fclabs.enums.LoggerInfoLevelEnum;
 import com.pods.fclabs.exception.CampoObrigatorioException;
 import com.pods.fclabs.exception.EnderecoExistenteException;
@@ -53,27 +54,27 @@ public class EnderecoController {
             @ApiResponse(code = 409, message = ENDERECO_EXISTENTE),
             @ApiResponse(code = 500, response = Exception.class ,message = "Failure")})
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> salva(@RequestBody @Valid Endereco endereco) throws Exception {
+    public ResponseEntity<Object> salva(@RequestBody @Valid EnderecoDTO enderecoDTO) throws Exception {
         try {
-            if (endereco == null) {
-                Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "Salva", DADOS_OBRIGATORIOS, endereco, LoggerInfoLevelEnum.ERROR);
+            if (enderecoDTO == null) {
+                Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "Salva", DADOS_OBRIGATORIOS, enderecoDTO, LoggerInfoLevelEnum.ERROR);
 
                 return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                         HttpStatus.CONFLICT.name(),
                         DADOS_OBRIGATORIOS, CAMPO_OBRIGATORIO_EXCEPTION), HttpStatus.BAD_REQUEST);
             }
-            final EnderecoResponse enderecoResponse = service.salva(endereco);
+            final EnderecoResponse enderecoResponse = service.salva(enderecoDTO);
 
             return enderecoResponse == null ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(enderecoResponse, HttpStatus.CREATED);
         } catch (CampoObrigatorioException coe) {
-            Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "Salva", coe.getMessage(), endereco, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), CAMPO_OBRIGATORIO_EXCEPTION, "Salva", coe.getMessage(), enderecoDTO, LoggerInfoLevelEnum.ERROR);
 
             return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.name(),
                     coe.getMessage(), CAMPO_OBRIGATORIO_EXCEPTION), HttpStatus.BAD_REQUEST);
 
         } catch (EnderecoExistenteException e) {
-            Util.registraLog(this.getClass(), ENDERECO_EXISTENTE_EXCEPTION, "salva", e.getMessage(), endereco, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), ENDERECO_EXISTENTE_EXCEPTION, "salva", e.getMessage(), enderecoDTO, LoggerInfoLevelEnum.ERROR);
 
             return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.CONFLICT.value(),
                     HttpStatus.CONFLICT.name(),
@@ -91,14 +92,14 @@ public class EnderecoController {
             @ApiResponse(code = 409, message = ENDERECO_EXISTENTE),
             @ApiResponse(code = 500, response = Exception.class ,message = "Failure")})
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> atualiza(@RequestBody Endereco endereco) {
+    public ResponseEntity<Object> atualiza(@RequestBody EnderecoDTO enderecoDTO) {
         try {
-            return new ResponseEntity<>(service.atualiza(endereco), HttpStatus.OK);
+            return new ResponseEntity<>(service.atualiza(enderecoDTO), HttpStatus.OK);
         } catch (NullPointerException e) {
-            Util.registraLog(this.getClass(), e.getClass().getName(), "atualiza", e.getStackTrace().toString(), endereco, LoggerInfoLevelEnum.INFO);
+            Util.registraLog(this.getClass(), e.getClass().getName(), "atualiza", e.getStackTrace().toString(), enderecoDTO, LoggerInfoLevelEnum.INFO);
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (EnderecoInexistenteException eie) {
-            Util.registraLog(this.getClass(), ENDERECO_INEXISTENTE_EXCEPTION, "atualiza", eie.getMessage(), endereco, LoggerInfoLevelEnum.ERROR);
+            Util.registraLog(this.getClass(), ENDERECO_INEXISTENTE_EXCEPTION, "atualiza", eie.getMessage(), enderecoDTO, LoggerInfoLevelEnum.ERROR);
             return new ResponseEntity<>(Util.criaMsgRetorno(HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.name(),
                     eie.getMessage(), ENDERECO_INEXISTENTE_EXCEPTION ), HttpStatus.BAD_REQUEST);

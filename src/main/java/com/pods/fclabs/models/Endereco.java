@@ -41,6 +41,6 @@ public class Endereco implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToOne(mappedBy = "endereco")
+    @OneToOne
     private Usuario usuario;
 }

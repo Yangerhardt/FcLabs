@@ -2,6 +2,7 @@ package com.pods.fclabs.services;
 
 import java.util.UUID;
 
+import com.pods.fclabs.dtos.UsuarioDTO;
 import org.springframework.stereotype.Service;
 
 import com.pods.fclabs.exception.CampoObrigatorioException;
@@ -11,11 +12,11 @@ import com.pods.fclabs.models.Usuario;
 public class ValidaCamposObrigatoriosUsuarioService {
 
   
-    public void validaCamposObrigatoriosUsuario(Usuario usuario) {
+    public void validaCamposObrigatoriosUsuario(UsuarioDTO usuarioDTO) {
     
     
-        validaCampo(usuario.getNome(), "Campo nome é obrigatório para cadastro de Usuario!");
-        validaCampo(usuario.getNomeMae(), "Campo Nome Mãe é obrigatório para cadastro de Usuario!");
+        validaCampo(usuarioDTO.getNome(), "Campo nome é obrigatório para cadastro de Usuario!");
+        validaCampo(usuarioDTO.getNomeMae(), "Campo Nome Mãe é obrigatório para cadastro de Usuario!");
 		
         
     }

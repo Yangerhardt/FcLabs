@@ -11,7 +11,6 @@ public class MsgRetorno {
     private String exception;
     private String message;
     private String path;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Usuario usuario;
 

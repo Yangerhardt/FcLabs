@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne
     private Endereco endereco;
 
 
