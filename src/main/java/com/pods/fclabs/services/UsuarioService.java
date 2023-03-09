@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.pods.fclabs.dtos.UsuarioDTO;
-import com.pods.fclabs.mapper.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +26,6 @@ public class UsuarioService {
 	@Autowired
 	private ValidaCamposObrigatoriosUsuarioService validaCamposObrigatorios;
 
-	@Autowired
-	private UsuarioMapper mapper;
-
 	public UsuarioResponse salva(UsuarioDTO usuarioDTO) throws UsuarioExistenteException {
 		try {
 
@@ -37,7 +33,7 @@ public class UsuarioService {
 			usuarioDTO.setId(UUID.randomUUID());
 			usuarioDTO.setDtCriacao(Util.formatarData(new Date()));
 			usuarioDTO.setDtUltAlteracao(Util.formatarData(new Date()));
-			Usuario usuario = mapper.toUsuario(usuarioDTO);
+			Usuario usuario = util.converterParaUsuario(usuarioDTO);
 			return util.converteUsuarioInResponse(usuarioRepository.save(usuario));
 
 		} catch (UsuarioExistenteException e) {
@@ -49,7 +45,7 @@ public class UsuarioService {
 		validaCamposObrigatorios.validaIdUsuario(usuarioDTO.getId());
 		validaCamposObrigatorios.validaCamposObrigatoriosUsuario(usuarioDTO);
 		usuarioDTO.setDtUltAlteracao(Util.formatarData(new Date()));
-		Usuario usuario = mapper.toUsuario(usuarioDTO);
+		Usuario usuario = util.converterParaUsuario(usuarioDTO);
 		return util.converteUsuarioInResponse(usuarioRepository.save(usuario));
 	}
 	

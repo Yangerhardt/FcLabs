@@ -5,14 +5,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
-import com.pods.fclabs.mapper.EnderecoMapper;
+import com.pods.fclabs.dtos.EnderecoDTO;
+import com.pods.fclabs.dtos.UsuarioDTO;
 import com.pods.fclabs.models.*;
+import com.pods.fclabs.services.UsuarioService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class Util {
     private static final String PODS_MAPPING = "/usuario";
 
     @Autowired
-    private EnderecoMapper enderecoMapper;
+    private UsuarioService usuarioService;
 
     private Util() {
     }
@@ -265,9 +266,9 @@ public class Util {
         pr.setId(paciente.getId());
         pr.setNome(paciente.getNome());
         pr.setNomeMae(paciente.getNomeMae());
-        if (paciente.getEndereco() != null) {
-            enderecoMapper.toEnderecoResponse(paciente.getEndereco());
-        }
+//        if (paciente.getEndereco() != null) {
+//            EnderecoResponse enderecoResponse = enderecoMapper.converterParaEnderecoResponse(paciente.getEndereco());
+//        }
 
         return pr;
     }
@@ -325,5 +326,50 @@ public class Util {
         }
 
         return lista;
+    }
+
+    public Usuario converterParaUsuario(UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario();
+        usuario.setId(usuarioDTO.getId());
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setNomeMae(usuarioDTO.getNomeMae());
+        if (usuarioDTO.getEndereco() == null) {
+            usuario.setEndereco(null);
+        } else {
+            usuario.setEndereco(usuarioDTO.getEndereco());
+        }
+
+        return usuario;
+    }
+
+    public Endereco converterParaEndereco(EnderecoDTO enderecoDTO) {
+        Endereco endereco = new Endereco();
+        endereco.setId(enderecoDTO.getId());
+        endereco.setCep(enderecoDTO.getCep());
+        endereco.setCidade(enderecoDTO.getCidade());
+        endereco.setUf(enderecoDTO.getUf());
+        endereco.setLogradouro(enderecoDTO.getLogradouro());
+        endereco.setNumero(enderecoDTO.getNumero());
+        endereco.setComplemento(enderecoDTO.getComplemento());
+
+        Usuario usuario = usuarioService.findbyidUsuario(enderecoDTO.getUsuarioId());
+        usuario.setEndereco(endereco);
+
+        endereco.setUsuario(usuario);
+
+        return endereco;
+    }
+
+    public EnderecoResponse converterParaEnderecoResponse(Endereco endereco) {
+        EnderecoResponse response = new EnderecoResponse();
+        response.setId(endereco.getId());
+        response.setCep(endereco.getCep());
+        response.setCidade(endereco.getCidade());
+        response.setUf(endereco.getUf());
+        response.setLogradouro(endereco.getLogradouro());
+        response.setNumero(endereco.getNumero());
+        response.setComplemento(endereco.getComplemento());
+
+        return response;
     }
 }

@@ -35,12 +35,4 @@ public class Usuario implements Serializable {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Endereco endereco;
 
-    public Usuario(UsuarioDTO usuarioDTO) {
-        this.id = usuarioDTO.getId();
-        this.nome = usuarioDTO.getNome();
-        this.nomeMae = usuarioDTO.getNomeMae();
-        this.dtCriacao = usuarioDTO.getDtCriacao();
-        this.dtUltAlteracao = usuarioDTO.getDtUltAlteracao();
-        this.endereco = usuarioDTO.getEndereco();
-    }
 }

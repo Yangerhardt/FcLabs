@@ -16,7 +16,6 @@ import java.util.UUID;
 @Setter
 public class EnderecoDTO {
 
-    @ApiModelProperty(hidden = true)
     private UUID id;
     @NotBlank
     private String cep;
@@ -31,26 +30,5 @@ public class EnderecoDTO {
     private String complemento;
     @NotNull
     private UUID usuarioId;
-
-    public EnderecoDTO(Endereco endereco) {
-        this.id = endereco.getId();
-        this.cep = endereco.getCep();
-        this.cidade = endereco.getCidade();
-        this.uf = endereco.getUf();
-        this.logradouro = endereco.getLogradouro();
-        this.numero = endereco.getNumero();
-        this.complemento = endereco.getComplemento();
-        this.usuarioId = endereco.getUsuario().getId();
-    }
-
-/*    public EnderecoDTO(EnderecoResponse enderecoResponse) {
-        this.id = enderecoResponse.getId();
-        this.cep = enderecoResponse.getCep();
-        this.cidade = enderecoResponse.getCidade();
-        this.uf = enderecoResponse.getUf();
-        this.logradouro = enderecoResponse.getLogradouro();
-        this.numero = enderecoResponse.getNumero();
-        this.complemento = enderecoResponse.getComplemento();
-    }*/
 
 }
