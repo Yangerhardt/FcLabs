@@ -3,8 +3,6 @@ package com.pods.fclabs.services;
 import com.pods.fclabs.dtos.EnderecoDTO;
 import com.pods.fclabs.exception.CampoObrigatorioException;
 import com.pods.fclabs.models.Endereco;
-import com.pods.fclabs.models.Usuario;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -18,7 +16,6 @@ public class ValidaCamposObrigatoriosEnderecoService {
         validaCampo(enderecoDTO.getCidade(), "Campo cidade é obrigatório para cadastro de endereço!");
         validaCampo(enderecoDTO.getLogradouro(), "Campo logradouro é obrigatório para cadastro de endereço!");
         validaCampo(enderecoDTO.getNumero(), "Campo numero é obrigatório para cadastro de endereço!");
-        validaUsuarioId(enderecoDTO.getUsuarioId(), "Campo usuarioID é obrigatório para cadastro de endereço!");
 
     }
 
@@ -33,10 +30,10 @@ public class ValidaCamposObrigatoriosEnderecoService {
         validaCampo(id.toString(), "Informar o ID do Endereco");
     }
 
-    private static void validaUsuarioId(UUID usuarioId, String mensagemException) {
+/*    private static void validaUsuarioId(UUID usuarioId, String mensagemException) {
         if (usuarioId == null || usuarioId.toString().isEmpty()) {
             throw new CampoObrigatorioException(mensagemException);
         }
-    }
+    }*/
 
 }

@@ -1,7 +1,7 @@
 package com.pods.fclabs.dtos;
 
+
 import com.pods.fclabs.models.Endereco;
-import com.pods.fclabs.models.EnderecoResponse;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -26,7 +26,6 @@ public class EnderecoDTO {
     private String logradouro;
     @NotBlank
     private String numero;
-    @NotBlank
     private String complemento;
     @NotNull
     private UUID usuarioId;
@@ -42,7 +41,7 @@ public class EnderecoDTO {
         this.usuarioId = endereco.getUsuario().getId();
     }
 
-    public EnderecoDTO(EnderecoResponse enderecoResponse) {
+/*    public EnderecoDTO(EnderecoResponse enderecoResponse) {
         this.id = enderecoResponse.getId();
         this.cep = enderecoResponse.getCep();
         this.cidade = enderecoResponse.getCidade();
@@ -50,6 +49,6 @@ public class EnderecoDTO {
         this.logradouro = enderecoResponse.getLogradouro();
         this.numero = enderecoResponse.getNumero();
         this.complemento = enderecoResponse.getComplemento();
-        this.usuarioId = enderecoResponse.getUsuario().getId();
-    }
+    }*/
+
 }

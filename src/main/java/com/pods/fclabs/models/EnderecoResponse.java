@@ -1,7 +1,5 @@
 package com.pods.fclabs.models;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.UUID;
 
 public class EnderecoResponse {
@@ -13,7 +11,7 @@ public class EnderecoResponse {
     private String logradouro;
     private String numero;
     private String complemento;
-    private Usuario usuario;
+    private UsuarioResponse usuarioResponse;
 
     public UUID getId() {
         return id;
@@ -57,10 +55,11 @@ public class EnderecoResponse {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    public Usuario getUsuario() {
-        return usuario;
+    public UsuarioResponse getUsuarioResponse() {
+        return usuarioResponse;
     }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioResponse(UsuarioResponse usuarioResponse) {
+        this.usuarioResponse = usuarioResponse;
     }
+
 }

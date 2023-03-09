@@ -260,8 +260,7 @@ public class Util {
         pr.setId(paciente.getId());
         pr.setNome(paciente.getNome());
         pr.setNomeMae(paciente.getNomeMae());
-        pr.setEndereco(paciente.getEndereco());
-     
+
         return pr;
     }
     
@@ -272,7 +271,6 @@ public class Util {
             pr.setId(listaUsuario.get(i).getId());
             pr.setNome(listaUsuario.get(i).getNome());
             pr.setNomeMae(listaUsuario.get(i).getNomeMae());
-            pr.setEndereco(listaUsuario.get(i).getEndereco());
             lista.add(pr);
 		}
     
@@ -288,7 +286,12 @@ public class Util {
         response.setLogradouro(endereco.getLogradouro());
         response.setNumero(endereco.getNumero());
         response.setComplemento(endereco.getComplemento());
-        response.setUsuario(endereco.getUsuario());
+        UsuarioResponse usuarioResponse = new UsuarioResponse();
+        usuarioResponse.setNomeMae(endereco.getUsuario().getNomeMae());
+        usuarioResponse.setNome(endereco.getUsuario().getNome());
+        usuarioResponse.setId(endereco.getUsuario().getId());
+
+        response.setUsuarioResponse(usuarioResponse);
 
         return response;
     }
@@ -304,7 +307,6 @@ public class Util {
             response.setLogradouro(endereco.getLogradouro());
             response.setNumero(endereco.getNumero());
             response.setComplemento(endereco.getComplemento());
-            response.setUsuario(endereco.getUsuario());
             lista.add(response);
         }
 

@@ -7,24 +7,20 @@ import java.util.UUID;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pods.fclabs.dtos.UsuarioDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
 @ApiModel(value = "Objeto Usuario",subTypes = {Usuario.class})
 @Data
 @Entity
 @Table(name = "TB_USUARIO")
+@NoArgsConstructor
 public class Usuario implements Serializable {
     
 	private static final long serialVersionUID = 1L;
 
-    
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
@@ -36,8 +32,15 @@ public class Usuario implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToOne
+    @OneToOne(mappedBy = "usuario")
     private Endereco endereco;
 
-
+    public Usuario(UsuarioDTO usuarioDTO) {
+        this.id = usuarioDTO.getId();
+        this.nome = usuarioDTO.getNome();
+        this.nomeMae = usuarioDTO.getNomeMae();
+        this.dtCriacao = usuarioDTO.getDtCriacao();
+        this.dtUltAlteracao = usuarioDTO.getDtUltAlteracao();
+        this.endereco = usuarioDTO.getEndereco();
+    }
 }

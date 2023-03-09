@@ -35,9 +35,9 @@ public class UsuarioService {
 
 			validaCamposObrigatorios.validaCamposObrigatoriosUsuario(usuarioDTO);
 			usuarioDTO.setId(UUID.randomUUID());
+			usuarioDTO.setDtCriacao(Util.formatarData(new Date()));
+			usuarioDTO.setDtUltAlteracao(Util.formatarData(new Date()));
 			Usuario usuario = mapper.toUsuario(usuarioDTO);
-			usuario.setDtCriacao(Util.formatarData(new Date()));
-			usuario.setDtUltAlteracao(Util.formatarData(new Date()));
 			return util.converteUsuarioInResponse(usuarioRepository.save(usuario));
 
 		} catch (UsuarioExistenteException e) {
@@ -48,14 +48,19 @@ public class UsuarioService {
 	public UsuarioResponse atualiza(UsuarioDTO usuarioDTO) {
 		validaCamposObrigatorios.validaIdUsuario(usuarioDTO.getId());
 		validaCamposObrigatorios.validaCamposObrigatoriosUsuario(usuarioDTO);
+		usuarioDTO.setDtUltAlteracao(Util.formatarData(new Date()));
 		Usuario usuario = mapper.toUsuario(usuarioDTO);
-		usuario.setDtUltAlteracao(Util.formatarData(new Date()));
 		return util.converteUsuarioInResponse(usuarioRepository.save(usuario));
 	}
 	
-	public UsuarioResponse findbyidUsuario(UUID id) {
+	public UsuarioResponse findbyidUsuarioResponse(UUID id) {
 		validaCamposObrigatorios.validaIdUsuario(id);
 		return util.converteUsuarioInResponse(usuarioRepository.getById(id));
+	}
+
+	public Usuario findbyidUsuario (UUID id) {
+		validaCamposObrigatorios.validaIdUsuario(id);
+		return usuarioRepository.getById(id);
 	}
 
 	public List<UsuarioResponse> findAll() {

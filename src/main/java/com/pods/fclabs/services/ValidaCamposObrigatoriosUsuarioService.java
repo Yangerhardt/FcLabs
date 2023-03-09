@@ -27,7 +27,6 @@ public class ValidaCamposObrigatoriosUsuarioService {
         }
     }
 
- 
 
     public void validaIdUsuario(UUID id) {
         validaCampo(id.toString(), "Informar o ID do Usuario");

@@ -1,20 +1,23 @@
 package com.pods.fclabs.mapper;
 
 import com.pods.fclabs.dtos.EnderecoDTO;
-import com.pods.fclabs.dtos.UsuarioDTO;
 import com.pods.fclabs.models.Endereco;
 import com.pods.fclabs.models.Usuario;
 import com.pods.fclabs.models.UsuarioResponse;
 import com.pods.fclabs.services.UsuarioService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class EnderecoMapper {
 
     @Autowired
-    private static UsuarioService service;
+    private UsuarioService service;
+
+    @Autowired
+    private UsuarioMapper mapper;
 
     public EnderecoDTO toEnderecoDTO(Endereco endereco) {
         return new EnderecoDTO(endereco);
@@ -29,12 +32,12 @@ public class EnderecoMapper {
         endereco.setLogradouro(enderecoDTO.getLogradouro());
         endereco.setNumero(enderecoDTO.getNumero());
         endereco.setComplemento(enderecoDTO.getComplemento());
-        UsuarioResponse usuarioResponse = service.findbyidUsuario(enderecoDTO.getUsuarioId());
-        UsuarioDTO usuarioDTO = new UsuarioDTO(usuarioResponse);
-        Usuario usuario = new Usuario();
-        BeanUtils.copyProperties(usuarioDTO, usuario);
 
+
+        UUID usuarioId = enderecoDTO.getUsuarioId();
+        Usuario usuario = service.findbyidUsuario(enderecoDTO.getUsuarioId());
         usuario.setEndereco(endereco);
+
         endereco.setUsuario(usuario);
 
         return endereco;

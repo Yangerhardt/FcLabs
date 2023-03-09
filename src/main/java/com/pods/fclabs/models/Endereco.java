@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -42,5 +43,6 @@ public class Endereco implements Serializable {
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
     @OneToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 }

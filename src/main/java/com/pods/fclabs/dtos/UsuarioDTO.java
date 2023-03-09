@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,23 +22,20 @@ import java.util.UUID;
 public class UsuarioDTO {
 
     private UUID id;
+    @NotBlank
     private String nome;
+    @NotBlank
     private String nomeMae;
+    @ApiModelProperty(hidden = true)
     private Date dtCriacao;
+    @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    private UUID enderecoId;
+    private Endereco endereco;
 
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();
         this.nome = usuario.getNome();
         this.nomeMae = usuario.getNomeMae();
-        this.enderecoId = usuario.getEndereco().getId();
-    }
-
-    public UsuarioDTO(UsuarioResponse usuarioResponse) {
-        this.id = usuarioResponse.getId();
-        this.nome = usuarioResponse.getNome();
-        this.nomeMae = usuarioResponse.getNomeMae();
-        this.enderecoId = usuarioResponse.getEndereco().getId();
+        this.endereco = usuario.getEndereco();
     }
 }

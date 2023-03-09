@@ -84,10 +84,10 @@ public class UsuarioController {
             return new ResponseEntity<>(Util.criaMsgRetornoComUsuario(HttpStatus.CONFLICT.value(),
                     HttpStatus.CONFLICT.name(),
                     USUARIO_EXISTENTE, USUARIO_EXISTENTE_EXCEPTION, gson.fromJson(e.getMessage(), Usuario.class)), HttpStatus.CONFLICT);
-        } 
-    }    
-    
-        
+        }
+    }
+
+
     @ApiOperation(value = "atualiza", nickname = "Atualizar Usuario")
     @ApiResponses(value = {
             @ApiResponse(code = 204, response = UsuarioResponse.class, message = ""),
@@ -124,7 +124,7 @@ public class UsuarioController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> busca(@PathVariable UUID id) {
         try {
-            final UsuarioResponse usuarioResponse = service.findbyidUsuario(id);
+            final UsuarioResponse usuarioResponse = service.findbyidUsuarioResponse(id);
 
             if (Objects.isNull(usuarioResponse))
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
