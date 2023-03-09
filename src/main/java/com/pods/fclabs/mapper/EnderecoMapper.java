@@ -2,6 +2,7 @@ package com.pods.fclabs.mapper;
 
 import com.pods.fclabs.dtos.EnderecoDTO;
 import com.pods.fclabs.models.Endereco;
+import com.pods.fclabs.models.EnderecoResponse;
 import com.pods.fclabs.models.Usuario;
 import com.pods.fclabs.models.UsuarioResponse;
 import com.pods.fclabs.services.UsuarioService;
@@ -33,13 +34,25 @@ public class EnderecoMapper {
         endereco.setNumero(enderecoDTO.getNumero());
         endereco.setComplemento(enderecoDTO.getComplemento());
 
-
-        UUID usuarioId = enderecoDTO.getUsuarioId();
         Usuario usuario = service.findbyidUsuario(enderecoDTO.getUsuarioId());
         usuario.setEndereco(endereco);
 
         endereco.setUsuario(usuario);
 
         return endereco;
+    }
+
+    public EnderecoResponse toEnderecoResponse (Endereco endereco) {
+        EnderecoResponse response = new EnderecoResponse();
+        response.setId(endereco.getId());
+        response.setCep(endereco.getCep());
+        response.setCidade(endereco.getCidade());
+        response.setUf(endereco.getUf());
+        response.setLogradouro(endereco.getLogradouro());
+        response.setNumero(endereco.getNumero());
+        response.setComplemento(endereco.getComplemento());
+
+        return response;
+
     }
 }

@@ -42,7 +42,7 @@ public class Endereco implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 }

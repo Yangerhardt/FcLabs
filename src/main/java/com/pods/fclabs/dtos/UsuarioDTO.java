@@ -21,6 +21,7 @@ import java.util.UUID;
 @Builder
 public class UsuarioDTO {
 
+    @ApiModelProperty(hidden = true)
     private UUID id;
     @NotBlank
     private String nome;
@@ -30,6 +31,7 @@ public class UsuarioDTO {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
+    @ApiModelProperty(hidden = true)
     private Endereco endereco;
 
     public UsuarioDTO(Usuario usuario) {

@@ -67,10 +67,9 @@ public class UsuarioService {
 		return util.converteListUsuarioInResponse(usuarioRepository.findAll());
 	}
 	
-	public UsuarioResponse remove(UUID id) {
+	public void remove(UUID id) {
 		validaCamposObrigatorios.validaIdUsuario(id);
 		usuarioRepository.delete(usuarioRepository.getById(id));
-		return util.converteUsuarioInResponse(usuarioRepository.getById(id));
 	}
 	
 

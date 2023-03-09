@@ -2,6 +2,7 @@ package com.pods.fclabs.dtos;
 
 
 import com.pods.fclabs.models.Endereco;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Setter
 public class EnderecoDTO {
 
+    @ApiModelProperty(hidden = true)
     private UUID id;
     @NotBlank
     private String cep;

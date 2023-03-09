@@ -109,7 +109,8 @@ public class EnderecoController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> desativa(@PathVariable UUID id) {
         try {
-            return new ResponseEntity<>(service.remove(id), HttpStatus.OK);
+            service.remove(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (NullPointerException e) {
             Util.registraLog(this.getClass(), e.getClass().getName(), "Remove", e.getStackTrace().toString(), new Endereco(), LoggerInfoLevelEnum.ERROR);
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

@@ -60,9 +60,8 @@ public class EnderecoService {
         return util.converteListEnderecoInResponse(enderecoRepository.findAll());
     }
 
-    public EnderecoResponse remove(UUID id) {
+    public void remove(UUID id) {
         validaCamposObrigatorios.validaIdEndereco(id);
         enderecoRepository.deleteById(id);
-        return util.converteEnderecoInResponse(enderecoRepository.getById(id));
     }
 }

@@ -11,11 +11,13 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
+import com.pods.fclabs.mapper.EnderecoMapper;
 import com.pods.fclabs.models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.GsonBuilder;
@@ -25,6 +27,9 @@ import com.pods.fclabs.enums.LoggerInfoLevelEnum;
 @Service
 public class Util {
     private static final String PODS_MAPPING = "/usuario";
+
+    @Autowired
+    private EnderecoMapper enderecoMapper;
 
     private Util() {
     }
@@ -260,6 +265,9 @@ public class Util {
         pr.setId(paciente.getId());
         pr.setNome(paciente.getNome());
         pr.setNomeMae(paciente.getNomeMae());
+        if (paciente.getEndereco() != null) {
+            enderecoMapper.toEnderecoResponse(paciente.getEndereco());
+        }
 
         return pr;
     }
@@ -307,6 +315,12 @@ public class Util {
             response.setLogradouro(endereco.getLogradouro());
             response.setNumero(endereco.getNumero());
             response.setComplemento(endereco.getComplemento());
+            UsuarioResponse usuarioResponse = new UsuarioResponse();
+            usuarioResponse.setNomeMae(endereco.getUsuario().getNomeMae());
+            usuarioResponse.setNome(endereco.getUsuario().getNome());
+            usuarioResponse.setId(endereco.getUsuario().getId());
+
+            response.setUsuarioResponse(usuarioResponse);
             lista.add(response);
         }
 

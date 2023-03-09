@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
     private Date dtCriacao;
     @ApiModelProperty(hidden = true)
     private Date dtUltAlteracao;
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Endereco endereco;
 
     public Usuario(UsuarioDTO usuarioDTO) {
