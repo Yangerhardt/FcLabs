@@ -19,7 +19,6 @@ public class ValidaCamposObrigatoriosEnderecoService {
 
     }
 
-
     private static void validaCampo(String campo, String mensagemException) {
         if (java.util.Objects.isNull(campo) || campo.isEmpty()) {
             throw new CampoObrigatorioException(mensagemException);
@@ -29,11 +28,5 @@ public class ValidaCamposObrigatoriosEnderecoService {
     public void validaIdEndereco(UUID id) {
         validaCampo(id.toString(), "Informar o ID do Endereco");
     }
-
-/*    private static void validaUsuarioId(UUID usuarioId, String mensagemException) {
-        if (usuarioId == null || usuarioId.toString().isEmpty()) {
-            throw new CampoObrigatorioException(mensagemException);
-        }
-    }*/
 
 }

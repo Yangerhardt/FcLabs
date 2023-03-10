@@ -266,9 +266,6 @@ public class Util {
         pr.setId(paciente.getId());
         pr.setNome(paciente.getNome());
         pr.setNomeMae(paciente.getNomeMae());
-//        if (paciente.getEndereco() != null) {
-//            EnderecoResponse enderecoResponse = enderecoMapper.converterParaEnderecoResponse(paciente.getEndereco());
-//        }
 
         return pr;
     }

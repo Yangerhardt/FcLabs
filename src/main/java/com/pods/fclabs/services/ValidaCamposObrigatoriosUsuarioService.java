@@ -17,8 +17,7 @@ public class ValidaCamposObrigatoriosUsuarioService {
     
         validaCampo(usuarioDTO.getNome(), "Campo nome é obrigatório para cadastro de Usuario!");
         validaCampo(usuarioDTO.getNomeMae(), "Campo Nome Mãe é obrigatório para cadastro de Usuario!");
-		
-        
+
     }
 
     private static void validaCampo(String campo, String mensagemException) {
@@ -26,7 +25,6 @@ public class ValidaCamposObrigatoriosUsuarioService {
             throw new CampoObrigatorioException(mensagemException);
         }
     }
-
 
     public void validaIdUsuario(UUID id) {
         validaCampo(id.toString(), "Informar o ID do Usuario");
